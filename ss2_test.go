@@ -105,7 +105,7 @@ var ss2ProxyTests = []struct {
 	{url.User("abc"), url.User("abc"), false},
 	{url.UserPassword("abc", "def"), url.UserPassword("abc", "def"), false},
 
-	{url.User("aes-128-cfb"), url.User("aes-128-cfb"), false},
+	{url.User("aes-128-cfb"), url.User("aes-128-cfb"), true},
 	{url.User("aes-128-cfb"), url.UserPassword("aes-128-cfb", "123456"), false},
 	{url.UserPassword("aes-128-cfb", "123456"), url.User("aes-128-cfb"), false},
 	// {url.UserPassword("aes-128-cfb", "123456"), url.UserPassword("aes-128-cfb", "abc"), false},
