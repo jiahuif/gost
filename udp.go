@@ -242,6 +242,7 @@ func (c *udpServerConn) ReadFrom(b []byte) (n int, addr net.Addr, err error) {
 	select {
 	case bb := <-c.rChan:
 		n = copy(b, bb)
+		zeroBuffer(bb)
 		if cap(bb) == mediumBufferSize {
 			mPool.Put(bb[:cap(bb)])
 		}

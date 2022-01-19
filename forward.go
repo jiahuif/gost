@@ -673,7 +673,6 @@ func (l *udpRemoteForwardListener) listenLoop() {
 
 			for {
 				b := make([]byte, mediumBufferSize)
-				setZeroingFinalizer(b)
 				n, raddr, err := conn.ReadFrom(b)
 				if err != nil {
 					log.Logf("[rudp] %s : %s", l.Addr(), err)

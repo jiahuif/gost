@@ -1,3 +1,4 @@
+//go:build linux
 // +build linux
 
 package gost
@@ -178,7 +179,6 @@ func UDPRedirectListener(addr string, cfg *UDPListenConfig) (Listener, error) {
 
 func (l *udpRedirectListener) Accept() (conn net.Conn, err error) {
 	b := make([]byte, mediumBufferSize)
-	setZeroingFinalizer(b)
 	n, raddr, dstAddr, err := tproxy.ReadFromUDP(l.UDPConn, b)
 	if err != nil {
 		log.Logf("[red-udp] %s : %s", l.Addr(), err)
@@ -223,6 +223,7 @@ func (c *udpRedirectServerConn) Read(b []byte) (n int, err error) {
 	}
 	c.once.Do(func() {
 		n = copy(b, c.buf)
+		zeroBuffer(c.buf)
 		c.buf = nil
 	})
 
